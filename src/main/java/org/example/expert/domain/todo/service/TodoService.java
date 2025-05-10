@@ -19,7 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+// @Transactional(readOnly = true) -> 현재 에러가 나는 부분
+// readOnly를 false로 바꿔주면 됨(false가 기본값)
+@Transactional
 public class TodoService {
 
     private final TodoRepository todoRepository;
