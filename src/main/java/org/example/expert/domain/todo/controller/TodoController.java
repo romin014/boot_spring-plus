@@ -18,16 +18,6 @@ public class TodoController {
 
     private final TodoService todoService;
 
-
-    /* 에러 로그 원문 :
-    jakarta.servlet.ServletException: Request processing failed:
-    org.springframework.orm.jpa.JpaSystemException: could not execute statement
-    [Connection is read-only. Queries leading to data modification are not allowed]
-    [insert into todos (contents,created_at,modified_at,title,user_id,weather)
-    values (?,?,?,?,?,?)]
-    */
-    /*
-    * Connection is read-only -> 읽기전용으로 설정되어있기 때문에 에러 발생 */
     @PostMapping("/todos")
     public ResponseEntity<TodoSaveResponse> saveTodo(
             @Auth AuthUser authUser,
