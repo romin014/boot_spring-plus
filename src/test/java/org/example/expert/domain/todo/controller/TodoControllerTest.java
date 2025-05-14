@@ -58,6 +58,8 @@ class TodoControllerTest {
                 .andExpect(jsonPath("$.title").value(title));
     }
 
+    // 발생오류
+    /* Could not detect default configuration classes for test class */
     @Test
     void todo_단건_조회_시_todo가_존재하지_않아_예외가_발생한다() throws Exception {
         // given
@@ -67,11 +69,20 @@ class TodoControllerTest {
         when(todoService.getTodo(todoId))
                 .thenThrow(new InvalidRequestException("Todo not found"));
 
-        // then
-        mockMvc.perform(get("/todos/{todoId}", todoId))
+        // 경고 떠있던 부분 확인
+        /* 1. mockMvc.perform(get("/todos/{todoId}", todoId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(HttpStatus.OK.name()))
                 .andExpect(jsonPath("$.code").value(HttpStatus.OK.value()))
+                .andExpect(jsonPath("$.message").value("Todo not found"));
+            2. InvalidRequestException 으로 예외가 발생했는데 httpStatus는 전부 OK임
+            3. OK 부분을 BadRequest 로 변경
+         */
+        // then
+        mockMvc.perform(get("/todos/{todoId}", todoId))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.name()))
+                .andExpect(jsonPath("$.code").value(HttpStatus.BAD_REQUEST.value()))
                 .andExpect(jsonPath("$.message").value("Todo not found"));
     }
 }
