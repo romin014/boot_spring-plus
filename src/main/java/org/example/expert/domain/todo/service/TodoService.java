@@ -39,6 +39,8 @@ public class TodoService {
                 user
         );
         Todo savedTodo = todoRepository.save(newTodo);
+        // todo를 저장할 때 manager도 함께 등록
+        newTodo.addManager(user);
 
         return new TodoSaveResponse(
                 savedTodo.getId(),

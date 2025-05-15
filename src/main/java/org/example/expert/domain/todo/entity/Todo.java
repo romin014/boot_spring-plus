@@ -42,4 +42,9 @@ public class Todo extends Timestamped {
         this.user = user;
         this.managers.add(new Manager(user, this));
     }
+
+    public void addManager(User user) {
+        Manager manager = new Manager(user, this);
+        this.managers.add(manager);
+    }
 }
