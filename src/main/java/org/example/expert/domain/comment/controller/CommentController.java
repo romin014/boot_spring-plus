@@ -28,6 +28,7 @@ public class CommentController {
         return ResponseEntity.ok(commentService.saveComment(authUser, todoId, commentSaveRequest));
     }
 
+    // n+1 문제 발생 지점
     @GetMapping("/todos/{todoId}/comments")
     public ResponseEntity<List<CommentResponse>> getComments(@PathVariable long todoId) {
         return ResponseEntity.ok(commentService.getComments(todoId));
